@@ -1,8 +1,8 @@
 // const arr = [1, 4, 4, 4, 5, 3];
 const arr = [1, 1, 2, 2, 3];
 
+
 function migratoryBirds(arr) {
-    let result = 0;
     let mapElements = new Map;
 
     for (let i = 0; i < arr.length; i++) {
@@ -14,15 +14,27 @@ function migratoryBirds(arr) {
         }        
     }
     console.log(mapElements);
-    // mapElements.entries().reduce((a,e) => {
-    //     console.log(e[1] > a[1] ? e : a); 
-    // })
+    
+    // console.log([...mapElements.entries()].reduce((acc, current) => 
+    //     current[1] > acc[1] ? current : acc
+    // ))
 
-    // console.log([...mapElements.entries()].reduce((a, e ) => e[1] > a[1] ? e : a))
-    console.log([...mapElements.entries()].reduce((acc, red) => console.log(acc[1]) ))
+    let maxValue = mapElements.entries().next().value[1];
+    let maxKey = mapElements.entries().next().value[0];
 
+    for (const el of mapElements) {                 
+        if (el[1] == maxValue && el[0] < maxKey) {
+            maxKey = el[0]
+        }
+        if (el[1] > maxValue) {
+            maxValue = el[1];
+            maxKey = el[0];
+        }
+        console.log(`maxKey: ${maxKey} ---> maxValue: ${maxValue}`)
+    }
 
-    return result
+    console.log(maxKey);
+    return maxKey
 }
 
 migratoryBirds(arr)
